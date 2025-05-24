@@ -26,6 +26,7 @@ const Question = () => {
     }
 
     setIsLoading(true);
+    setResponse(null); // Clear previous response
     console.log("Sending question to webhook:", question);
 
     try {
@@ -48,26 +49,31 @@ const Question = () => {
         try {
           // Try to parse as JSON first
           data = JSON.parse(responseText);
+          console.log("Parsed as JSON:", data);
         } catch (parseError) {
           // If it's not JSON, create a simple object with the text response
           data = {
             status: responseText,
             message: "Your question has been received and is being processed.",
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            originalQuestion: question
           };
+          console.log("Created fallback object:", data);
         }
         
-        console.log("Processed response:", data);
+        console.log("Setting response state:", data);
         setResponse(data);
+        
         toast({
           title: "Success",
           description: "Got a response about your Phuket question!",
         });
       } else {
-        throw new Error('Failed to get response');
+        throw new Error(`Failed to get response: ${response.status}`);
       }
     } catch (error) {
       console.error('Error sending question:', error);
+      setResponse(null);
       toast({
         title: "Error",
         description: "Failed to get an answer. Please try again.",
@@ -79,11 +85,16 @@ const Question = () => {
   };
 
   const renderResponse = (data: any) => {
-    if (!data) return null;
+    if (!data) {
+      console.log("No data to render");
+      return null;
+    }
+
+    console.log("Rendering response data:", data);
 
     return (
       <Card className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200 rounded-2xl">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Response:</h3>
+        <h3 className="text-xl font-bold text-gray-800 mb-4">Response from Phuket Travel Advisor:</h3>
         <div className="space-y-4">
           {Object.entries(data).map(([key, value]) => (
             <div key={key} className="border-l-4 border-cyan-400 pl-4">
@@ -96,9 +107,21 @@ const Question = () => {
             </div>
           ))}
         </div>
+        {data.status === 'Accepted' && (
+          <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <p className="text-green-700 font-medium">
+              ✅ Your question has been successfully submitted to our Phuket experts!
+            </p>
+            <p className="text-green-600 text-sm mt-1">
+              We're processing your request and will provide detailed recommendations soon.
+            </p>
+          </div>
+        )}
       </Card>
     );
   };
+
+  console.log("Current response state:", response);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-blue-50">
@@ -144,6 +167,17 @@ const Question = () => {
           {response && (
             <div className="mt-8">
               {renderResponse(response)}
+            </div>
+          )}
+          
+          {isLoading && (
+            <div className="mt-8">
+              <Card className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200 rounded-2xl">
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500 mr-3"></div>
+                  <p className="text-gray-600">Processing your question...</p>
+                </div>
+              </Card>
             </div>
           )}
         </div>
