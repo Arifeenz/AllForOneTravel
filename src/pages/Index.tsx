@@ -6,25 +6,25 @@ import TourCard from '@/components/TourCard';
 const Index = () => {
   const tourPackages = [
     {
-      title: "Island Hopping Adventure",
-      description: "Explore the stunning Phi Phi Islands and James Bond Island with crystal clear waters and dramatic limestone cliffs.",
-      image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=80",
-      price: "$129",
-      duration: "Full Day"
+      "title": "ทริปเที่ยวภูเก็ต 3 วัน 2 คืน",
+      "description": "ทริปสุดฟินที่รวมครบทั้งทะเลใส วัฒนธรรมพื้นถิ่น และอาหารซีฟู้ดสุดอร่อย! เดินทางสะดวก พักผ่อนสบาย ตะลุยแลนด์มาร์กดังของภูเก็ตในเวลา 3 วัน 2 คืน เหมาะสำหรับสายเที่ยวแบบจัดเต็มแต่ไม่เร่งรีบ",
+      "image": "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=80",
+      "price": "4,999 บาท",
+      "duration": "3 วัน 2 คืน"
     },
     {
-      title: "Cultural Temple Tour",
-      description: "Discover the rich heritage of Phuket with visits to Wat Chalong, Big Buddha, and local traditional markets.",
-      image: "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=800&q=80",
-      price: "$79",
-      duration: "Half Day"
+      "title": "Cultural Temple Tour",
+      "description": "สัมผัสความงดงามของวัฒนธรรมภูเก็ต เยี่ยมชมวัดฉลอง (Wat Chalong) อันศักดิ์สิทธิ์ ชมพระพุทธรูปองค์ใหญ่ที่ Big Buddha และเพลิดเพลินกับการเดินตลาดพื้นเมือง ชิมของอร่อย และเรียนรู้วิถีชีวิตชาวใต้แบบแท้จริง",
+      "image": "https://images.unsplash.com/photo-1466442929976-97f336a657be?auto=format&fit=crop&w=800&q=80",
+      "price": "2,800 บาท",
+      "duration": "ครึ่งวัน (Half Day)"
     },
     {
-      title: "Sunset Beach Experience",
-      description: "Relax on pristine beaches, enjoy water sports, and witness breathtaking sunsets at Patong and Kata beaches.",
-      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80",
-      price: "$99",
-      duration: "Full Day"
+      "title": "Sunset Beach Experience",
+      "description": "พักผ่อนบนชายหาดขาว น้ำทะเลใส สนุกกับกิจกรรมทางน้ำที่หาดกะตะและป่าตอง แล้วปิดท้ายวันด้วยการชมพระอาทิตย์ตกดินสุดโรแมนติกริมทะเล เหมาะกับทั้งคนโสด เพื่อนฝูง หรือคู่รักที่ต้องการช่วงเวลาดีๆ บนหาดทราย",
+      "image": "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80",
+      "price": "3,500 บาท",
+      "duration": "เต็มวัน (Full Day)"
     }
   ];
 
