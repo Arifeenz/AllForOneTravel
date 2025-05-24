@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import Navigation from '@/components/Navigation';
@@ -41,12 +41,27 @@ const Question = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log("Received response:", data);
+        const responseText = await response.text();
+        console.log("Received response text:", responseText);
+        
+        let data;
+        try {
+          // Try to parse as JSON first
+          data = JSON.parse(responseText);
+        } catch (parseError) {
+          // If it's not JSON, create a simple object with the text response
+          data = {
+            status: responseText,
+            message: "Your question has been received and is being processed.",
+            timestamp: new Date().toISOString()
+          };
+        }
+        
+        console.log("Processed response:", data);
         setResponse(data);
         toast({
           title: "Success",
-          description: "Got an answer about Phuket!",
+          description: "Got a response about your Phuket question!",
         });
       } else {
         throw new Error('Failed to get response');
@@ -68,7 +83,7 @@ const Question = () => {
 
     return (
       <Card className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200 rounded-2xl">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Answer:</h3>
+        <h3 className="text-xl font-bold text-gray-800 mb-4">Response:</h3>
         <div className="space-y-4">
           {Object.entries(data).map(([key, value]) => (
             <div key={key} className="border-l-4 border-cyan-400 pl-4">
@@ -106,13 +121,12 @@ const Question = () => {
                 <label htmlFor="question" className="block text-lg font-semibold text-gray-700 mb-3">
                   Ask us anything about Phuket
                 </label>
-                <Input
+                <Textarea
                   id="question"
-                  type="text"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
-                  placeholder="e.g., What are the best beaches to visit in Phuket?"
-                  className="w-full text-lg py-4 rounded-xl border-cyan-200 focus:border-cyan-400 focus:ring-cyan-400"
+                  placeholder="e.g., What are the best beaches to visit in Phuket? Any recommendations for local restaurants?"
+                  className="w-full text-lg py-4 rounded-xl border-cyan-200 focus:border-cyan-400 focus:ring-cyan-400 min-h-[120px]"
                   disabled={isLoading}
                 />
               </div>
