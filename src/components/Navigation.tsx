@@ -23,7 +23,7 @@ const Navigation = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-lg">P</span>
             </div>
-            <span className="text-xl font-bold text-gray-800">Phuket Travel Advisor</span>
+            <span className="text-xl font-bold text-gray-800">All For One Tour</span>
           </Link>
 
 
