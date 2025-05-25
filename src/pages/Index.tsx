@@ -5,7 +5,13 @@ import TourCard from '@/components/TourCard';
 
 
 const Index = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', question: '' });
+  const [formData, setFormData] = useState({
+  destination: '',
+  startDate: '',
+  endDate: '',
+  styles: [] as string[],
+});
+
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,9 +22,24 @@ const Index = () => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setResponseMessage('');
+  e.preventDefault();
+  setIsLoading(true);
+  setResponseMessage('');
+
+  try {
+    const res = await fetch('https://hook.eu2.make.com/cgxambj94rm5uxohjv8yoy6n44wioux2', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+    setResponseMessage(JSON.stringify(data, null, 2)); // แสดงผลแบบ JSON สวยงาม
+  } catch (error) {
+    setResponseMessage('❌ เกิดข้อผิดพลาดในการส่งข้อมูล');
+  } finally {
+    setIsLoading(false);
+  }
 
 
     try {
@@ -155,53 +176,83 @@ const Index = () => {
       <Navigation />
 
 
-      {/* แบบฟอร์มด้านล่าง Navbar */}
+      {/* แบบฟอร์มวางแผนทริป */} 
       <div className="container mx-auto px-4 mt-8">
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl mx-auto border border-blue-100">
-          <h2 className="text-2xl font-bold mb-4 text-gray-700">สอบถามข้อมูลทริปเพิ่มเติม</h2>
+          <h2 className="text-2xl font-bold mb-4 text-gray-700">วางแผนทริปท่องเที่ยวของคุณ</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
+
+            {/* จุดหมาย */}
             <input
               type="text"
-              name="name"
-              placeholder="ชื่อของคุณ"
-              value={formData.name}
+              name="destination"
+              placeholder="จุดหมายปลายทาง เช่น ภูเก็ต"
+              value={formData.destination || ''}
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
-            <input
-              type="email"
-              name="email"
-              placeholder="อีเมล"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded"
-              required
-            />
-            <textarea
-              name="question"
-              placeholder="คำถามหรือข้อความของคุณ"
-              value={formData.question}
-              onChange={handleChange}
-              //rows="4"
-              className="w-full p-3 border border-gray-300 rounded"
-              required
-            ></textarea>
 
+            {/* วันที่ */}
+            <div className="flex space-x-4">
+              <input
+                type="date"
+                name="startDate"
+                value={formData.startDate || ''}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded"
+                required
+              />
+              <input
+                type="date"
+                name="endDate"
+                value={formData.endDate || ''}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded"
+                required
+              />
+            </div>
 
+            {/* สไตล์การเที่ยว */}
+            <div>
+              <label className="block font-semibold mb-2 text-gray-700">สไตล์การเที่ยว (เลือกได้หลายแบบ):</label>
+              {['ธรรมชาติ', 'ช้อปปิ้ง', 'ถ่ายรูป', 'สายกิน', 'คาเฟ่'].map((style) => (
+                <label key={style} className="inline-flex items-center mr-4 mb-2">
+                  <input
+                    type="checkbox"
+                    name="styles"
+                    value={style}
+                    checked={formData.styles?.includes(style) || false}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const checked = e.target.checked;
+                      setFormData((prev) => ({
+                        ...prev,
+                        styles: checked
+                          ? [...(prev.styles || []), value]
+                          : (prev.styles || []).filter((s) => s !== value),
+                      }));
+                    }}
+                    className="mr-2"
+                  />
+                  {style}
+                </label>
+              ))}
+            </div>
+
+            {/* ปุ่มส่ง */}
             <button
               type="submit"
               className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 rounded transition"
               disabled={isLoading}
             >
-              {isLoading ? 'กำลังส่ง...' : 'ส่งคำถาม'}
+              {isLoading ? 'กำลังสร้างแผน...' : 'สร้างทริป'}
             </button>
           </form>
 
-
-          {/* ตำแหน่งแสดงผลลัพธ์ */}
+          {/* แสดงผลลัพธ์ที่ได้จาก webhook */}
           {responseMessage && (
-            <div className="mt-4 text-green-600 font-semibold">
+            <div className="mt-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded text-sm whitespace-pre-wrap">
               {responseMessage}
             </div>
           )}
