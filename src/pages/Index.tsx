@@ -273,6 +273,31 @@ const Index = () => {
         {/* CTA */}
         
       </div>
+            {/* Testimonial Section */}
+<div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-white py-16 mt-20">
+  <div className="max-w-5xl mx-auto px-4 text-center">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-10">
+      เสียงจากนักเดินทางที่เลือก All For One Tour
+    </h2>
+    <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+      {/* ภาพผู้เดินทาง */}
+      <img
+        src="https://s.isanook.com/tr/0/ud/285/1429273/tghd.jpg?ip/crop/w1200h700/q80/webp"
+        alt="happy traveler"
+        className="rounded-xl shadow-lg w-full max-w-sm object-cover h-64"
+      />
+
+      {/* คำพูด */}
+      <div className="text-left max-w-lg">
+        <p className="text-xl text-gray-700 font-medium mb-4">
+          “ทริปภูเก็ตกับ <span className="font-bold text-cyan-600">All For One</span> คือที่สุดของปีนี้เลย!
+          บริการดี ประสบการณ์ครบ ทั้งทะเล คาเฟ่ และที่พักหรู!”
+        </p>
+        <p className="text-sm text-gray-500">– คุณพิมพ์พร, นักเดินทางสายธรรมชาติ</p>
+      </div>
+    </div>
+  </div>
+</div>
 
       <Footer />
     </div>
