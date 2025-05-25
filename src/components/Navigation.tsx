@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogOut, User } from 'lucide-react';
@@ -11,8 +10,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
+
 const Navigation = () => {
   const [isLoggedIn] = useState(true); // For demo purposes
+
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
@@ -25,16 +26,25 @@ const Navigation = () => {
             <span className="text-xl font-bold text-gray-800">Phuket Travel Advisor</span>
           </Link>
 
+
           <div className="flex items-center space-x-4">
             <Link to="/question">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="rounded-full border-cyan-200 text-cyan-600 hover:bg-cyan-50"
               >
-                Ask Question
+                คุยกับน้องออฟอวัน
               </Button>
             </Link>
-            
+            <Link to="#">
+              <Button
+                variant="outline"
+                className="rounded-full border-cyan-200 text-cyan-600 hover:bg-cyan-50"
+              >
+                ลงทะเบียน
+              </Button>
+            </Link>
+           
             {isLoggedIn && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -45,8 +55,8 @@ const Navigation = () => {
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end" 
+                <DropdownMenuContent
+                  align="end"
                   className="w-48 bg-white border border-gray-200 rounded-xl shadow-lg"
                 >
                   <DropdownMenuItem className="cursor-pointer hover:bg-gray-50 rounded-lg">
@@ -62,5 +72,6 @@ const Navigation = () => {
     </nav>
   );
 };
+
 
 export default Navigation;
