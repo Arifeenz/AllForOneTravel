@@ -28,14 +28,7 @@ const Navigation = () => {
 
 
           <div className="flex items-center space-x-4">
-            <Link to="/question">
-              <Button
-                variant="outline"
-                className="rounded-full border-cyan-200 text-cyan-600 hover:bg-cyan-50"
-              >
-                คุยกับน้องออฟอวัน
-              </Button>
-            </Link>
+            
             <Link to="#">
               <Button
                 variant="outline"

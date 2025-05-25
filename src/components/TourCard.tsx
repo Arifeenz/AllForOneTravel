@@ -22,7 +22,7 @@ const TourCard = ({ title, description, image, price, duration }: TourCardProps)
         <p className="text-gray-600 mb-4 line-clamp-2">{description}</p>
         <div className="flex justify-between items-center">
           <div>
-            <span className="text-2xl font-bold text-cyan-600">{price}</span>
+            <span className="text-2xl font-bold text-cyan-600">{price}</span><br></br>
             <span className="text-gray-500 text-sm ml-1"> {duration}</span>
           </div>
           <button className="bg-gradient-to-r from-cyan-400 to-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:from-cyan-500 hover:to-blue-600 transition-all duration-200">
